@@ -1,0 +1,8 @@
+# The dreaded node modules!
+node_modules/**/*
+
+# OSX placement files
+**/**/.DS_Store
+
+# Distribution folder
+dist/**/*
