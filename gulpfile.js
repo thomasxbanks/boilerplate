@@ -33,6 +33,10 @@ var path = {
         i: './src/img/**/*',
         o: './dist/img'
     },
+    data: {
+        i: './src/data/**/*.json',
+        o: './dist/data'
+    },
     vendor: {
       i: './src/vendor/**/*',
       o: './dist/vendor'
@@ -52,7 +56,7 @@ var autoprefixerOptions = {
 // TASKS
 
 gulp.task('default', function(callback) {
-    runSequence('sass', 'html', 'js', 'img', 'vendor', callback)
+    runSequence('sass', 'html', 'js', 'img', 'data', 'vendor', callback)
 })
 
 // Watching for changes
@@ -63,6 +67,7 @@ gulp.task('watch', function(callback) {
         gulp.watch(path.css.i, ['sass', browserSync.reload])
         gulp.watch(path.html.i, ['html', browserSync.reload])
         gulp.watch(path.img.i, ['img', browserSync.reload])
+        gulp.watch(path.data.i, ['data', browserSync.reload])
         gulp.watch(path.vendor.i, ['vendor', browserSync.reload])
     })
 })
@@ -88,6 +93,12 @@ gulp.task('img', function() {
     gulp.src([path.img.i])
     // Perform minification tasks, etc here
 	   .pipe(gulp.dest(path.img.o))
+})
+
+gulp.task('data', function() {
+    gulp.src([path.data.i])
+    // Perform minification tasks, etc here
+	   .pipe(gulp.dest(path.data.o))
 })
 
 gulp.task('vendor', function() {
