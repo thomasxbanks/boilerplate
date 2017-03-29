@@ -1,1 +1,1 @@
-document.querySelector('main').innerHTML += "<br />Vendor test"
+document.querySelector('main').innerHTML = "Vendor test"
