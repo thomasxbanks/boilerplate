@@ -1,4 +1,3 @@
-
 // Trigger resize on completion of event
 let Debouncer = (func, timeout) => {
     if (timeout === "") {
@@ -18,10 +17,10 @@ let Debouncer = (func, timeout) => {
 // Scroll to anchor
 let ScrollToAnchor = (aid) => {
     var aTag = document.querySelectorAll("a[name='" + aid + "']");
-    aTag.forEach((obj)=>{
-      document.querySelector('html,body').animate({
-          scrollTop: (obj.offset().top)
-      }, 900);
+    aTag.forEach((obj) => {
+        document.querySelector('html,body').animate({
+            scrollTop: (obj.offset().top)
+        }, 900);
     })
 
 }
@@ -44,4 +43,25 @@ let disableButton = (target) => {
     document.querySelector(target).prop('disabled', true)
 }
 
-// These are the functions that run when each page is loaded
+// Get the value of the given parameter
+let getURLParameter = (sParam) => {
+    let sPageURL = window.location.search.substring(1)
+    let sURLVariables = sPageURL.split('&')
+    sURLVariables.forEach((object, index) => {
+      var sParameterName = sURLVariables[index].split('=');
+      if (sParameterName[0] == sParam) {
+          // Log for debug
+          console.log('URL parameter:', sParameterName[1])
+          return sParameterName[1]
+      }
+    })
+}
+
+let urlContains = (needle) => {
+  let haystack = window.location.href
+  if (haystack.indexOf(needle) !== -1){
+    return true
+  } else {
+    return false
+  }
+}

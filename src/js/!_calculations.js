@@ -1,5 +1,3 @@
-"use strict"
-
 // declare variables
 let browserWidth, browserHeight, screenWidth, screenHeight, distance, target, device_type, device_name
 

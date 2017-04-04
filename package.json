@@ -21,9 +21,14 @@
     "gulp-babel": "^6.1.2",
     "gulp-clean": "^0.3.2",
     "gulp-concat": "^2.6.1",
+    "gulp-config-strip-debug": "^1.0.0",
+    "gulp-imagemin": "^3.2.0",
+    "gulp-noop": "^1.0.0",
     "gulp-sass": "^3.1.0",
     "gulp-sourcemaps": "^2.4.1",
+    "gulp-strip-comments": "^2.4.5",
     "gulp-uglify": "^2.1.2",
     "run-sequence": "^1.2.2"
-  }
+  },
+  "dependencies": {}
 }
