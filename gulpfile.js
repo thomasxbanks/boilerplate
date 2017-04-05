@@ -20,7 +20,6 @@ var concat = require("gulp-concat")
 
 // For Images
 var imagemin = require('gulp-imagemin')
-var imageResize = require('gulp-image-resize')
 
 // Define I/O paths
 var path = {
@@ -44,9 +43,9 @@ var path = {
         i: './src/data/**/*.json',
         o: './dist/data'
     },
-    vendor: {
-      i: './src/vendor/**/*',
-      o: './dist/vendor'
+    include: {
+      i: './src/include/**/*',
+      o: './dist/include'
     }
 }
 
@@ -65,7 +64,12 @@ var envProd = false
 // TASKS
 
 gulp.task('default', function(callback) {
-    runSequence('sass', 'html', 'js', 'img', 'data', 'vendor', callback)
+    sassOptions = {
+        errLogToConsole: true,
+        outputStyle: 'expanded'
+    }
+    envProd = false
+    runSequence('sass', 'html', 'js', 'img', 'data', 'include', callback)
 })
 
 // Watching for changes
@@ -77,7 +81,7 @@ gulp.task('watch', function(callback) {
         gulp.watch(path.html.i, ['html', browserSync.reload])
         gulp.watch(path.img.i, ['img', browserSync.reload])
         gulp.watch(path.data.i, ['data', browserSync.reload])
-        gulp.watch(path.vendor.i, ['vendor', browserSync.reload])
+        gulp.watch(path.include.i, ['include', browserSync.reload])
     })
 })
 
@@ -90,7 +94,7 @@ gulp.task('production', function(callback) {
         outputStyle: 'compressed'
     }
     envProd = true
-    runSequence('sass', 'html', 'js', 'img', 'data', 'vendor', () => {
+    runSequence('clean:dist', 'sass', 'html', 'js', 'img', 'data', 'include', () => {
       console.log('production build finished')
     })
 })
@@ -98,25 +102,19 @@ gulp.task('production', function(callback) {
 // Delete the distribution folder
 gulp.task('clean:dist', function() {
     return gulp.src('./dist', {read: false})
-	   .pipe(clean())
+	  .pipe(clean())
 })
 
 // HTML files
 gulp.task('html', function() {
     gulp.src([path.html.i])
     // Perform minification tasks, etc here
-	   .pipe(gulp.dest(path.html.o))
+	  .pipe(gulp.dest(path.html.o))
 })
 
 // Images
 gulp.task('img', function() {
     gulp.src([path.img.i])
-    .pipe((envProd) ? imageResize({
-            width: 100,
-            height: 100,
-            crop: true,
-            upscale: false
-        }) : noop())
     .pipe((envProd) ? imagemin({ progressive: true }) : noop())
 	  .pipe(gulp.dest(path.img.o))
 })
@@ -125,13 +123,13 @@ gulp.task('img', function() {
 gulp.task('data', function() {
     gulp.src([path.data.i])
     // Perform minification tasks, etc here
-	   .pipe(gulp.dest(path.data.o))
+	  .pipe(gulp.dest(path.data.o))
 })
 
 // 3rd party plugins
-gulp.task('vendor', function() {
-    gulp.src([path.vendor.i])
-	   .pipe(gulp.dest(path.vendor.o))
+gulp.task('include', function() {
+    gulp.src([path.include.i])
+	  .pipe(gulp.dest(path.include.o))
 })
 
 // Scss
@@ -148,7 +146,7 @@ gulp.task('sass', function() {
 gulp.task('js', function() {
     gulp.src(path.js.i)
     	.pipe(sourcemaps.init())
-    	.pipe((envProd) ? concat('app.js') : concat('app.min.js'))
+    	.pipe(concat('app.js'))
     	.pipe(babel({presets: ['es2015'], minified: envProd}))
       .pipe((envProd) ? stripDebug() : noop())
       .pipe((envProd) ? strip() : noop())
