@@ -20,6 +20,7 @@ var concat = require("gulp-concat")
 
 // For Images
 var imagemin = require('gulp-imagemin')
+var imageResize = require('gulp-image-resize')
 
 // Define I/O paths
 var path = {
@@ -89,7 +90,7 @@ gulp.task('production', function(callback) {
         outputStyle: 'compressed'
     }
     envProd = true
-    runSequence('clean:dist', 'sass', 'html', 'js', 'img', 'data', 'vendor', () => {
+    runSequence('sass', 'html', 'js', 'img', 'data', 'vendor', () => {
       console.log('production build finished')
     })
 })
@@ -110,6 +111,12 @@ gulp.task('html', function() {
 // Images
 gulp.task('img', function() {
     gulp.src([path.img.i])
+    .pipe((envProd) ? imageResize({
+            width: 100,
+            height: 100,
+            crop: true,
+            upscale: false
+        }) : noop())
     .pipe((envProd) ? imagemin({ progressive: true }) : noop())
 	  .pipe(gulp.dest(path.img.o))
 })
@@ -141,7 +148,7 @@ gulp.task('sass', function() {
 gulp.task('js', function() {
     gulp.src(path.js.i)
     	.pipe(sourcemaps.init())
-    	.pipe(concat('app.js'))
+    	.pipe((envProd) ? concat('app.js') : concat('app.min.js'))
     	.pipe(babel({presets: ['es2015'], minified: envProd}))
       .pipe((envProd) ? stripDebug() : noop())
       .pipe((envProd) ? strip() : noop())
