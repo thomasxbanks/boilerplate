@@ -39,7 +39,7 @@
 /* USAGE:
   .parent {
     .child {
-      @include adjust-form-siblings-count;
+      @include widthSibling;
     }
   }
 */

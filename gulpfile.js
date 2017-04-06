@@ -1,28 +1,31 @@
 // REQUIRE PACKAGES
 // For Gulp
-var gulp = require('gulp')
+let gulp = require('gulp')
 let runSequence = require('run-sequence')
-var clean = require('gulp-clean')
+let clean = require('gulp-clean')
 let browserSync = require('browser-sync').create()
-var strip = require('gulp-strip-comments')
-var stripDebug = require('gulp-config-strip-debug')
-var noop = require('gulp-noop')
+let strip = require('gulp-strip-comments')
+let stripDebug = require('gulp-config-strip-debug')
+let noop = require('gulp-noop')
 
-// For CSS
-var sass = require('gulp-sass')
-var sourcemaps = require('gulp-sourcemaps')
-var autoprefixer = require('gulp-autoprefixer')
+// For Css
+let sass = require('gulp-sass')
+let sourcemaps = require('gulp-sourcemaps')
+let autoprefixer = require('gulp-autoprefixer')
 
-// For JS
-var babel = require("gulp-babel")
-var uglify = require("gulp-uglify")
-var concat = require("gulp-concat")
+// For Js
+let babel = require("gulp-babel")
+let uglify = require("gulp-uglify")
+let concat = require("gulp-concat")
+
+// For Json
+let jsonminify = require('gulp-jsonminify')
 
 // For Images
-var imagemin = require('gulp-imagemin')
+let imagemin = require('gulp-imagemin')
 
 // Define I/O paths
-var path = {
+let path = {
     css: {
         i: './src/scss/**/*.scss',
         o: './dist/css/'
@@ -50,16 +53,16 @@ var path = {
 }
 
 // Define options
-var sassOptions = {
+let sassOptions = {
     errLogToConsole: true,
     outputStyle: 'expanded'
 }
 
-var autoprefixerOptions = {
+let autoprefixerOptions = {
     browsers: ['last 2 versions', '> 5%', 'Firefox ESR']
 }
 
-var envProd = false
+let envProd = false
 
 // TASKS
 
@@ -69,7 +72,7 @@ gulp.task('default', function(callback) {
         outputStyle: 'expanded'
     }
     envProd = false
-    runSequence('sass', 'html', 'js', 'img', 'data', 'include', callback)
+    runSequence('clean:dist', 'sass', 'html', 'js', 'img', 'data', 'include', callback)
 })
 
 // Watching for changes
@@ -122,7 +125,7 @@ gulp.task('img', function() {
 // Data files
 gulp.task('data', function() {
     gulp.src([path.data.i])
-    // Perform minification tasks, etc here
+    .pipe((envProd) ? jsonminify() : noop())
 	  .pipe(gulp.dest(path.data.o))
 })
 
