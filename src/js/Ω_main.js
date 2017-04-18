@@ -19,4 +19,9 @@ window.onload = () => {
 
     document.querySelector('main').innerHTML += "<br />width: " + browser.width + "<br />height: " + browser.height
 
+
+    document.querySelector('#nudge').addEventListener('click', ()=>{
+      console.log(browser.height);
+      scrollTo(document.body, browser.height, 600)
+    })
 }

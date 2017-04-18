@@ -17,3 +17,47 @@
 */
 @import "elements/buttons"; // Button styles
 @import "elements/forms"; // Form styles
+
+.hero {
+    width: 100%;
+    height: 100vh;
+}
+
+section.hero {
+    background-color: #222;
+    display: table;
+}
+
+.inner {
+    display: table-row;
+    background: radial-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.05));
+}
+
+.content {
+    display: table-cell;
+    vertical-align: bottom;
+    padding: 8vh 8vw;
+    text-align: center;
+    color: #fff;
+    background-image: url("http://www.mypawnee.com/gallery/VisualAssets/BGThemes/Pattern-Crosshatch.png");
+
+    p {
+        display: block;
+        padding: 2rem 0 4rem;
+    }
+
+    img:hover {
+        animation: pulse 1 $speed-std;
+    }
+
+    button {
+        animation: insistant 1 $speed-slowest;
+        animation-delay: 1000ms;
+    }
+}
+
+.round {
+    border-radius: 50%;
+    width: 200px;
+    height: 200px;
+}
