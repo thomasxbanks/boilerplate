@@ -10,6 +10,8 @@
     }
 }
 
+// Linear interpolation.
+// https://css-tricks.com/between-the-lines/
 @function between($to, $from, $toWidth, $fromWidth) {
   $slope: ($to - $from) / ($toWidth - $fromWidth);
   $base: $from - $slope * $fromWidth;
