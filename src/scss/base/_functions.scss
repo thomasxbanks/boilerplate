@@ -9,3 +9,10 @@
         @return hsla($h-hsb, $s-hsl, $l-hsl, $a);
     }
 }
+
+@function between($to, $from, $toWidth, $fromWidth) {
+  $slope: ($to - $from) / ($toWidth - $fromWidth);
+  $base: $from - $slope * $fromWidth;
+
+  @return calc(#{$base} + #{100vw * $slope});
+}
