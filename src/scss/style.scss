@@ -24,18 +24,20 @@
 }
 
 section.hero {
-    background-color: #222;
+    background-image: url(http://placekitten.com/g/1920/1080);
+    background-size: cover;
+    background-position: center center;
     display: table;
 }
 
 .inner {
     display: table-row;
-    background: radial-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.05));
+    background: radial-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.05));
 }
 
 .content {
     display: table-cell;
-    vertical-align: bottom;
+    vertical-align: middle;
     padding: 8vh 8vw;
     text-align: center;
     color: #fff;
