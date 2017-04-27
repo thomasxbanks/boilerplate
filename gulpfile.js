@@ -49,7 +49,11 @@ let path = {
 	include: {
 		i: './src/include/**/*',
 		o: './dist/include'
-	}
+	},
+    txt: {
+        i: './src/*.txt',
+		o: './dist'
+    }
 }
 
 // Define options
@@ -139,6 +143,13 @@ gulp.task('data', function() {
 gulp.task('include', function() {
 	gulp.src([path.include.i])
 		.pipe(gulp.dest(path.include.o))
+})
+
+// .txt files (Robots and Hhumans)
+gulp.task('html', function() {
+	gulp.src([path.txt.i])
+		// Perform minification tasks, etc here
+		.pipe(gulp.dest(path.txt.o))
 })
 
 // Scss
