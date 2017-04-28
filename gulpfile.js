@@ -76,7 +76,7 @@ gulp.task('default', function(callback) {
 		outputStyle: 'expanded'
 	}
 	envProd = false
-	runSequence('clean:dist', 'sass', 'html', 'js', 'img', 'data', 'include', callback)
+	runSequence('clean:dist', 'sass', 'html', 'js', 'img', 'data', 'include', 'txt', callback)
 })
 
 // Watching for changes
@@ -103,7 +103,7 @@ gulp.task('production', function(callback) {
 		outputStyle: 'compressed'
 	}
 	envProd = true
-	runSequence('clean:dist', 'sass', 'html', 'js', 'img', 'data', 'include', () => {
+	runSequence('clean:dist', 'sass', 'html', 'js', 'img', 'data', 'include', 'txt', () => {
 		console.log('production build finished')
 	})
 })
@@ -146,7 +146,7 @@ gulp.task('include', function() {
 })
 
 // .txt files (Robots and Hhumans)
-gulp.task('html', function() {
+gulp.task('txt', function() {
 	gulp.src([path.txt.i])
 		// Perform minification tasks, etc here
 		.pipe(gulp.dest(path.txt.o))
