@@ -19,8 +19,9 @@ $clr_warning: hsb(30, 100, 50);
 
 
 // Face Stack/Family
-$font_face-main: Arial, "Helvetica Neue", Helvetica, sans-serif;
-$font_face-accent: "Times New Roman", Times, Baskerville, Georgia, serif;
+@import url('https://fonts.googleapis.com/css?family=Arimo|Raleway');
+$font_face-main: "Arimo", Arial, "Helvetica Neue", Helvetica, sans-serif;
+$font_face-accent: "Raleway", "Times New Roman", Times, Baskerville, Georgia, serif;
 
 // Font Sizes
 $font_size-xsm: ($b * 1);
