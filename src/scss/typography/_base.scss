@@ -4,8 +4,8 @@
 // Extra marks awwarded for those who got the Sopranos references.
 
 .tony {
-  font-family: serif;
-  font-size: $font_size-std;
+  font-family: $font_face-accent;
+  font-size: $font_size-xlg;
   font-smooth: auto;
   font-size-adjust: none;
   font-variant: normal;
@@ -16,20 +16,20 @@
 }
 
 .silvio {
-  font-family: serif;
-  font-size: $font_size-std;
+  font-family: $font_face-accent;
+  font-size: $font_size-xlg;
   font-smooth: auto;
   font-size-adjust: none;
   font-variant: normal;
   font-kerning: none;
   font-variant-ligatures: none;
-  font-weight: 900;
+  font-weight: normal;
   font-style: normal;
 }
 
 .paulie {
-  font-family: serif;
-  font-size: $font_size-std;
+  font-family: $font_face-accent;
+  font-size: $font_size-med;
   font-smooth: auto;
   font-size-adjust: none;
   font-variant: normal;
@@ -40,8 +40,8 @@
 }
 
 .chris {
-  font-family: serif;
-  font-size: $font_size-std;
+  font-family: $font_face-main;
+  font-size: $font_size-med;
   font-smooth: auto;
   font-size-adjust: none;
   font-variant: normal;
@@ -52,49 +52,49 @@
 }
 
 .ralphie {
-  font-family: serif;
-  font-size: $font_size-std;
+  font-family: $font_face-accent;
+  font-size: $font_size-med;
   font-smooth: auto;
   font-size-adjust: none;
   font-variant: normal;
   font-kerning: none;
   font-variant-ligatures: none;
-  font-weight: 900;
+  font-weight: normal;
   font-style: normal;
 }
 
 .richie {
-  font-family: serif;
+  font-family: $font_face-main;
   font-size: $font_size-std;
   font-smooth: auto;
   font-size-adjust: none;
   font-variant: normal;
   font-kerning: none;
   font-variant-ligatures: none;
-  font-weight: 900;
+  font-weight: normal;
   font-style: normal;
 }
 
 .bobby {
-  font-family: serif;
-  font-size: $font_size-std;
+  font-family: $font_face-main;
+  font-size: $font_size-sml;
   font-smooth: auto;
   font-size-adjust: none;
   font-variant: normal;
   font-kerning: none;
   font-variant-ligatures: none;
-  font-weight: 900;
+  font-weight: normal;
   font-style: normal;
 }
 
 .junior {
-  font-family: serif;
-  font-size: $font_size-std;
+  font-family: $font_face-main;
+  font-size: $font_size-xsm;
   font-smooth: auto;
   font-size-adjust: none;
   font-variant: normal;
   font-kerning: none;
   font-variant-ligatures: none;
-  font-weight: 900;
+  font-weight: normal;
   font-style: normal;
 }
