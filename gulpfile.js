@@ -24,6 +24,9 @@ let jsonminify = require('gulp-jsonminify')
 // For Images
 let imagemin = require('gulp-imagemin')
 
+// For HTML
+let htmlmin = require('gulp-htmlmin')
+
 // Define I/O paths
 let path = {
 	css: {
@@ -119,7 +122,7 @@ gulp.task('clean:dist', function() {
 // HTML files
 gulp.task('html', function() {
 	gulp.src([path.html.i])
-		// Perform minification tasks, etc here
+		.pipe((envProd) ? htmlmin({collapseWhitespace: true}) : noop())
 		.pipe(gulp.dest(path.html.o))
 })
 
