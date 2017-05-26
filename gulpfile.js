@@ -148,7 +148,7 @@ gulp.task('include', function() {
 		.pipe(gulp.dest(path.include.o))
 })
 
-// .txt files (Robots and Hhumans)
+// .txt files (Robots and Humans)
 gulp.task('txt', function() {
 	gulp.src([path.txt.i])
 		// Perform minification tasks, etc here
