@@ -15,4 +15,8 @@ html {
 		font-size: $base; // Define the body copy as $base
 
 	}
+
+	main {
+		display: block; // To fix IE not understanding the <main> tag
+	}
 }
