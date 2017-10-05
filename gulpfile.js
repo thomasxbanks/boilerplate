@@ -10,13 +10,15 @@ let noop = require('gulp-noop')
 
 // For Css
 let sass = require('gulp-sass')
+let nano = require('gulp-cssnano')
 let sourcemaps = require('gulp-sourcemaps')
 let autoprefixer = require('gulp-autoprefixer')
+let purify = require('gulp-purifycss')
 
 // For Js
-let babel = require("gulp-babel")
-let uglify = require("gulp-uglify")
-let concat = require("gulp-concat")
+let babel = require('gulp-babel')
+let uglify = require('gulp-uglify')
+let concat = require('gulp-concat')
 
 // For Json
 let jsonminify = require('gulp-jsonminify')
@@ -60,24 +62,17 @@ let path = {
 }
 
 // Define options
+let envProd = false
 let sassOptions = {
-	errLogToConsole: true,
-	outputStyle: 'expanded'
+	errLogToConsole: (envProd) ? false : true
 }
-
 let autoprefixerOptions = {
 	browsers: ['last 2 versions', '> 5%', 'Firefox ESR']
 }
 
-let envProd = false
-
 // TASKS
 
 gulp.task('default', function(callback) {
-	sassOptions = {
-		errLogToConsole: true,
-		outputStyle: 'expanded'
-	}
 	envProd = false
 	runSequence('clean:dist', 'sass', 'html', 'js', 'img', 'data', 'include', 'txt', callback)
 })
@@ -86,7 +81,7 @@ gulp.task('default', function(callback) {
 gulp.task('watch', function(callback) {
 	runSequence('clean:dist', 'default', function() {
 		browserSync.init({
-			server: "dist"
+			server: 'dist'
 		})
 		gulp.watch(path.js.i, ['js', browserSync.reload])
 		gulp.watch(path.css.i, ['sass', browserSync.reload])
@@ -101,10 +96,6 @@ gulp.task('watch', function(callback) {
 // Destroy comments, remove console.logging, minify
 gulp.task('production', function(callback) {
 	console.log('production build started')
-	sassOptions = {
-		errLogToConsole: false,
-		outputStyle: 'compressed'
-	}
 	envProd = true
 	runSequence('clean:dist', 'sass', 'html', 'js', 'img', 'data', 'include', 'txt', () => {
 		console.log('production build finished')
@@ -158,24 +149,31 @@ gulp.task('txt', function() {
 // Scss
 gulp.task('sass', function() {
 	return gulp.src(path.css.i)
-		.pipe(sourcemaps.init())
+		.pipe((envProd) ? noop() : sourcemaps.init())
 		.pipe(sass(sassOptions).on('error', sass.logError))
-		.pipe(sourcemaps.write())
+		.pipe((envProd) ? purify([path.js.i, path.html.i]) : noop())
 		.pipe(autoprefixer((envProd) ? autoprefixerOptions : noop()))
+		.pipe((envProd) ? nano() : noop())
+		.pipe((envProd) ? noop() : sourcemaps.write('.'))
 		.pipe(gulp.dest(path.css.o))
 })
 
 // Javascript
 gulp.task('js', function() {
 	gulp.src(path.js.i)
-		.pipe(sourcemaps.init())
+		.pipe((envProd) ? noop() : sourcemaps.init())
 		.pipe(concat('app.js'))
-		.pipe(babel({
-			presets: ['es2015'],
-			minified: envProd
-		}))
+		.pipe(babel({minified: envProd}))
 		.pipe((envProd) ? stripDebug() : noop())
 		.pipe((envProd) ? strip() : noop())
-		.pipe(sourcemaps.write('.'))
+		.pipe((envProd) ? noop() : sourcemaps.write('.'))
 		.pipe(gulp.dest(path.js.o))
+    if (envProd){
+      gulp.src(path.js.i)
+    		.pipe(concat('app-legacy.js'))
+    		.pipe(babel({presets: ['es2015'], minified: true}))
+    		.pipe(stripDebug())
+    		.pipe(strip())
+    		.pipe(gulp.dest(path.js.o))
+    }
 })

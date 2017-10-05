@@ -4,7 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "gulp && gulp watch",
+    "build": "gulp",
+    "prod": "gulp production",
+    "watch": "gulp watch",
+    "test": "echo \"YOLO\" && exit 0"
   },
   "repository": {
     "type": "git",
@@ -27,12 +31,16 @@
     "gulp-imagemin": "^3.2.0",
     "gulp-jsonminify": "^1.0.0",
     "gulp-noop": "^1.0.0",
+    "gulp-purifycss": "^0.2.0",
     "gulp-rename": "^1.2.2",
     "gulp-sass": "^3.1.0",
     "gulp-sourcemaps": "^2.4.1",
     "gulp-strip-comments": "^2.4.5",
-    "gulp-uglify": "^2.1.2",
+    "gulp-uglify": "^3.0.0",
+    "purify-css": "^1.2.5",
     "run-sequence": "^1.2.2"
   },
-  "dependencies": {}
+  "dependencies": {
+    "gulp-cssnano": "^2.1.2"
+  }
 }
