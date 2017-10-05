@@ -74,12 +74,12 @@ let autoprefixerOptions = {
 
 gulp.task('default', function(callback) {
 	envProd = false
-	runSequence('clean:dist', 'sass', 'html', 'js', 'img', 'data', 'include', 'txt', callback)
+	runSequence('clean', 'sass', 'html', 'js', 'img', 'data', 'include', 'txt', callback)
 })
 
 // Watching for changes
 gulp.task('watch', function(callback) {
-	runSequence('clean:dist', 'default', function() {
+	runSequence('clean', 'default', function() {
 		browserSync.init({
 			server: 'dist'
 		})
@@ -97,13 +97,13 @@ gulp.task('watch', function(callback) {
 gulp.task('production', function(callback) {
 	console.log('production build started')
 	envProd = true
-	runSequence('clean:dist', 'sass', 'html', 'js', 'img', 'data', 'include', 'txt', () => {
+	runSequence('clean', 'sass', 'html', 'js', 'img', 'data', 'include', 'txt', () => {
 		console.log('production build finished')
 	})
 })
 
 // Delete the distribution folder
-gulp.task('clean:dist', function() {
+gulp.task('clean', function() {
 	return gulp.src('./dist', {read: false})
 		.pipe(clean())
 })
