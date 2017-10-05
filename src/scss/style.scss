@@ -64,3 +64,16 @@ html {
 		padding: 100px;
 	}
 }
+
+.class-that-doesnt-appear-anywhere {
+	color: orange;
+}
+
+.class-added-in-template {
+	color: dodgerblue;
+}
+
+.dynamically-added-class {
+  background: tomato;
+  font-size: 200rem;
+}

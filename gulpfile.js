@@ -104,9 +104,7 @@ gulp.task('production', function(callback) {
 
 // Delete the distribution folder
 gulp.task('clean:dist', function() {
-	return gulp.src('./dist', {
-			read: false
-		})
+	return gulp.src('./dist', {read: false})
 		.pipe(clean())
 })
 
@@ -120,9 +118,7 @@ gulp.task('html', function() {
 // Images
 gulp.task('img', function() {
 	gulp.src([path.img.i])
-		.pipe((envProd) ? imagemin({
-			progressive: true
-		}) : noop())
+		.pipe((envProd) ? imagemin({progressive: true}) : noop())
 		.pipe(gulp.dest(path.img.o))
 })
 
@@ -152,7 +148,7 @@ gulp.task('sass', function() {
 		.pipe((envProd) ? noop() : sourcemaps.init())
 		.pipe(sass(sassOptions).on('error', sass.logError))
 		.pipe((envProd) ? purify([path.js.i, path.html.i]) : noop())
-		.pipe(autoprefixer((envProd) ? autoprefixerOptions : noop()))
+    .pipe((envProd) ? autoprefixer(autoprefixerOptions) : noop())
 		.pipe((envProd) ? nano() : noop())
 		.pipe((envProd) ? noop() : sourcemaps.write('.'))
 		.pipe(gulp.dest(path.css.o))
@@ -168,12 +164,12 @@ gulp.task('js', function() {
 		.pipe((envProd) ? strip() : noop())
 		.pipe((envProd) ? noop() : sourcemaps.write('.'))
 		.pipe(gulp.dest(path.js.o))
-    if (envProd){
-      gulp.src(path.js.i)
-    		.pipe(concat('app-legacy.js'))
-    		.pipe(babel({presets: ['es2015'], minified: true}))
-    		.pipe(stripDebug())
-    		.pipe(strip())
-    		.pipe(gulp.dest(path.js.o))
-    }
+  if (envProd){
+    gulp.src(path.js.i)
+  		.pipe(concat('app-legacy.js'))
+  		.pipe(babel({presets: ['es2015'], minified: true}))
+  		.pipe(stripDebug())
+  		.pipe(strip())
+  		.pipe(gulp.dest(path.js.o))
+  }
 })
